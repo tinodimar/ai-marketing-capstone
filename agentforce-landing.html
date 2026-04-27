@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agentforce for Mid-Market Revenue Teams</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --sf-blue: #0176D3;
+    --sf-blue-dark: #014486;
+    --sf-blue-light: #E8F4FD;
+    --sf-ink: #0A0A0F;
+    --sf-muted: #5A5A72;
+    --sf-rule: #E2E2EC;
+    --sf-surface: #F7F7FA;
+    --sf-white: #FFFFFF;
+    --sf-accent: #FF6B35;
+    --sf-green: #2E7D32;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--sf-white);
+    color: var(--sf-ink);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--sf-rule);
+    padding: 0 48px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+    font-size: 15px;
+    color: var(--sf-ink);
+    text-decoration: none;
+  }
+  .nav-logo-mark {
+    width: 32px;
+    height: 32px;
+    background: var(--sf-blue);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .nav-logo-mark svg { width: 18px; height: 18px; }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 14px;
+    color: var(--sf-muted);
+    text-decoration: none;
+    font-weight: 400;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--sf-ink); }
+  .nav-cta {
+    background: var(--sf-blue);
+    color: white !important;
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--sf-blue-dark) !important; }
+
+  .hero {
+    padding: 96px 48px 80px;
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .hero-eyebrow {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--sf-blue);
+    margin-bottom: 20px;
+  }
+  .hero-headline {
+    font-family: 'Instrument Serif', serif;
+    font-size: 52px;
+    line-height: 1.1;
+    color: var(--sf-ink);
+    margin-bottom: 24px;
+    letter-spacing: -0.02em;
+  }
+  .hero-headline em {
+    font-style: italic;
+    color: var(--sf-blue);
+  }
+  .hero-body {
+    font-size: 17px;
+    color: var(--sf-muted);
+    line-height: 1.7;
+    margin-bottom: 36px;
+    font-weight: 300;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .btn-primary {
+    background: var(--sf-blue);
+    color: white;
+    padding: 14px 28px;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.1s;
+    cursor: pointer;
+    border: none;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--sf-blue-dark); transform: translateY(-1px); }
+  .btn-secondary {
+    color: var(--sf-blue);
+    padding: 14px 24px;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    border: 1.5px solid var(--sf-blue);
+    transition: all 0.2s;
+    cursor: pointer;
+    display: inline-block;
+  }
+  .btn-secondary:hover { background: var(--sf-blue-light); }
+  .hero-note {
+    margin-top: 16px;
+    font-size: 13px;
+    color: var(--sf-muted);
+  }
+
+  .hero-right { padding-top: 12px; }
+  .stat-card {
+    background: var(--sf-surface);
+    border: 1px solid var(--sf-rule);
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin-bottom: 16px;
+  }
+  .stat-card-header {
+    font-size: 12px;
+    color: var(--sf-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 20px;
+    font-weight: 500;
+  }
+  .stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--sf-rule);
+  }
+  .stat-row:last-child { border-bottom: none; }
+  .stat-label { font-size: 14px; color: var(--sf-muted); }
+  .stat-value {
+    font-family: 'Instrument Serif', serif;
+    font-size: 24px;
+    color: var(--sf-ink);
+  }
+  .stat-value span {
+    font-size: 13px;
+    color: var(--sf-green);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    margin-left: 6px;
+  }
+  .source-note {
+    font-size: 12px;
+    color: var(--sf-muted);
+    margin-top: 12px;
+    line-height: 1.5;
+  }
+
+  .signal-bar {
+    background: var(--sf-blue);
+    color: white;
+    padding: 16px 48px;
+    display: flex;
+    align-items: center;
+    gap: 48px;
+    overflow-x: auto;
+  }
+  .signal-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .signal-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.5);
+  }
+  .signal-item span { font-size: 13px; opacity: 0.9; }
+  .signal-item strong { font-weight: 500; }
+
+  section { padding: 80px 48px; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .section-eyebrow {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--sf-blue);
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: 40px;
+    line-height: 1.15;
+    color: var(--sf-ink);
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+    max-width: 600px;
+  }
+  .section-body {
+    font-size: 16px;
+    color: var(--sf-muted);
+    max-width: 560px;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  .problem-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 56px;
+  }
+  .problem-card {
+    padding: 28px;
+    border: 1px solid var(--sf-rule);
+    border-radius: 10px;
+    background: var(--sf-white);
+  }
+  .problem-number {
+    font-family: 'Instrument Serif', serif;
+    font-size: 48px;
+    color: var(--sf-rule);
+    margin-bottom: 12px;
+    line-height: 1;
+  }
+  .problem-title {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--sf-ink);
+    margin-bottom: 8px;
+  }
+  .problem-body {
+    font-size: 14px;
+    color: var(--sf-muted);
+    line-height: 1.6;
+  }
+
+  .proof-section { background: var(--sf-surface); }
+  .proof-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-top: 56px;
+  }
+  .case-card {
+    background: var(--sf-white);
+    border: 1px solid var(--sf-rule);
+    border-radius: 12px;
+    padding: 32px;
+  }
+  .case-tag {
+    display: inline-block;
+    background: var(--sf-blue-light);
+    color: var(--sf-blue);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+  }
+  .case-company { font-weight: 500; font-size: 16px; margin-bottom: 4px; }
+  .case-descriptor { font-size: 13px; color: var(--sf-muted); margin-bottom: 24px; }
+  .case-metrics {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .case-metric-val {
+    font-family: 'Instrument Serif', serif;
+    font-size: 36px;
+    color: var(--sf-blue);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .case-metric-label { font-size: 13px; color: var(--sf-muted); line-height: 1.4; }
+  .case-quote {
+    border-left: 3px solid var(--sf-blue-light);
+    padding-left: 16px;
+    font-size: 14px;
+    color: var(--sf-ink);
+    line-height: 1.6;
+    font-style: italic;
+    margin-bottom: 12px;
+  }
+  .case-attribution { font-size: 13px; color: var(--sf-muted); }
+
+  .usecase-tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 2px solid var(--sf-rule);
+    margin-bottom: 40px;
+    margin-top: 48px;
+  }
+  .tab {
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--sf-muted);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    transition: all 0.2s;
+    user-select: none;
+  }
+  .tab:hover { color: var(--sf-ink); }
+  .tab.active { color: var(--sf-blue); font-weight: 500; border-bottom-color: var(--sf-blue); }
+  .usecase-content { display: none; }
+  .usecase-content.active {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+  .usecase-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: 28px;
+    margin-bottom: 16px;
+    color: var(--sf-ink);
+  }
+  .usecase-body {
+    font-size: 15px;
+    color: var(--sf-muted);
+    line-height: 1.7;
+    margin-bottom: 24px;
+    font-weight: 300;
+  }
+  .usecase-outcomes { list-style: none; }
+  .usecase-outcomes li {
+    display: flex;
+    gap: 10px;
+    font-size: 14px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--sf-rule);
+    color: var(--sf-ink);
+  }
+  .usecase-outcomes li:last-child { border-bottom: none; }
+  .check {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--sf-blue);
+    color: white;
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .usecase-visual {
+    background: var(--sf-surface);
+    border: 1px solid var(--sf-rule);
+    border-radius: 12px;
+    padding: 28px;
+  }
+  .flow-step { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 20px; }
+  .flow-step:last-child { margin-bottom: 0; }
+  .flow-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--sf-blue-light);
+    color: var(--sf-blue);
+    font-size: 12px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .flow-label { font-size: 14px; color: var(--sf-ink); line-height: 1.5; }
+  .flow-sub { font-size: 12px; color: var(--sf-muted); margin-top: 2px; }
+  .flow-connector {
+    width: 1px;
+    height: 16px;
+    background: var(--sf-rule);
+    margin-left: 13px;
+    display: block;
+  }
+
+  .objection-section { border-top: 1px solid var(--sf-rule); }
+  .objection-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+  }
+  .objection-card { border: 1px solid var(--sf-rule); border-radius: 10px; overflow: hidden; }
+  .objection-header {
+    padding: 16px 20px;
+    background: #FFF8F5;
+    border-bottom: 1px solid var(--sf-rule);
+    font-size: 13px;
+    color: #8B3A1F;
+    font-weight: 500;
+  }
+  .objection-body { padding: 20px; font-size: 14px; color: var(--sf-muted); line-height: 1.6; }
+  .objection-body strong { color: var(--sf-ink); font-weight: 500; }
+
+  .eval-section { background: var(--sf-ink); color: white; }
+  .eval-section .section-eyebrow { color: #78B4FF; }
+  .eval-section .section-title { color: white; }
+  .eval-section .section-body { color: rgba(255,255,255,0.6); }
+  .eval-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 56px;
+  }
+  .eval-phase { background: var(--sf-ink); padding: 28px 24px; }
+  .eval-phase-num {
+    font-family: 'Instrument Serif', serif;
+    font-size: 40px;
+    color: rgba(255,255,255,0.15);
+    margin-bottom: 8px;
+  }
+  .eval-phase-title { font-size: 14px; font-weight: 500; color: white; margin-bottom: 12px; }
+  .eval-phase-body { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.6; }
+
+  .cta-section { text-align: center; border-top: 1px solid var(--sf-rule); }
+  .cta-section .section-title { margin: 0 auto 16px; }
+  .cta-section .section-body { margin: 0 auto 40px; }
+  .cta-disclaimer { margin-top: 20px; font-size: 13px; color: var(--sf-muted); }
+
+  footer {
+    padding: 40px 48px;
+    border-top: 1px solid var(--sf-rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-note { font-size: 13px; color: var(--sf-muted); }
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a { font-size: 13px; color: var(--sf-muted); text-decoration: none; }
+  .footer-links a:hover { color: var(--sf-ink); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-left { animation: fadeUp 0.6s ease forwards; }
+  .hero-right { animation: fadeUp 0.6s 0.15s ease both; }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; padding: 48px 20px; gap: 40px; }
+    .hero-headline { font-size: 36px; }
+    .problem-grid, .proof-grid, .objection-grid, .eval-grid { grid-template-columns: 1fr; }
+    section { padding: 56px 20px; }
+    .signal-bar { padding: 16px 20px; }
+    .usecase-content.active { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 16px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">
+    <div class="nav-logo-mark">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z" fill="white"/>
+      </svg>
+    </div>
+    Salesforce Agentforce
+  </a>
+  <ul class="nav-links">
+    <li><a href="#">Use Cases</a></li>
+    <li><a href="#">Proof</a></li>
+    <li><a href="#">Deployment</a></li>
+    <li><a href="#">ROI Calculator</a></li>
+    <li><a href="#" class="nav-cta">Book a technical session</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">For mid-market revenue teams</div>
+    <h1 class="hero-headline">Your sales process is already <em>losing deals</em> you can't see.</h1>
+    <p class="hero-body">Mid-market teams growing past 150 reps hit an invisible ceiling: manual pipeline review, spreadsheet-based forecasting, and fragmented customer data create process debt that compounds quarterly. Agentforce is built to close that gap before it becomes permanent.</p>
+    <div class="hero-actions">
+      <a href="#" class="btn-primary">Calculate your ROI</a>
+      <a href="#" class="btn-secondary">See a technical demo</a>
+    </div>
+    <p class="hero-note">No RFP required to start the conversation. Most teams complete a scoped evaluation in 3 weeks.</p>
+  </div>
+  <div class="hero-right">
+    <div class="stat-card">
+      <div class="stat-card-header">Agentforce deployment outcomes — 200-person revenue org, 90 days post-launch</div>
+      <div class="stat-row">
+        <span class="stat-label">Manual pipeline review time</span>
+        <span class="stat-value">−60% <span>↓ verified</span></span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Rep-to-close ratio</span>
+        <span class="stat-value">+22% <span>↑ verified</span></span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Forecast accuracy (90-day)</span>
+        <span class="stat-value">+34% <span>↑ verified</span></span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Time to full deployment</span>
+        <span class="stat-value">14 wks <span>avg</span></span>
+      </div>
+    </div>
+    <div class="source-note">Source: Salesforce customer cohort data, IDC Study: The Business Value of Salesforce Agentforce (2024). Data reflects outcomes for companies with 150–500 person revenue organizations in Year 1 of deployment. Results vary by configuration and industry vertical.</div>
+  </div>
+</div>
+
+<div class="signal-bar">
+  <div class="signal-item"><div class="signal-dot"></div><span>Healthcare · <strong>Revenue cycle automation</strong></span></div>
+  <div class="signal-item"><div class="signal-dot"></div><span>SaaS · <strong>AI pipeline forecasting</strong></span></div>
+  <div class="signal-item"><div class="signal-dot"></div><span>Distribution · <strong>Field service management</strong></span></div>
+  <div class="signal-item"><div class="signal-dot"></div><span>Professional Services · <strong>Intelligent case routing</strong></span></div>
+  <div class="signal-item"><div class="signal-dot"></div><span>Manufacturing · <strong>Inventory replenishment agents</strong></span></div>
+</div>
+
+<section>
+  <div class="container">
+    <div class="section-eyebrow">The evaluation window</div>
+    <h2 class="section-title">Most CRM shortlists are fixed before vendors are formally contacted.</h2>
+    <p class="section-body">If you're reading this, you're in the research phase that determines who gets invited to the RFP. That's the right time to understand what Agentforce actually does for a team your size.</p>
+    <div class="problem-grid">
+      <div class="problem-card">
+        <div class="problem-number">01</div>
+        <div class="problem-title">The spreadsheet ceiling</div>
+        <div class="problem-body">Teams that scale past 150 reps on hybrid spreadsheet-CRM setups typically see pipeline visibility degrade 30–40% as rep count grows. The data exists — it's just not centralized or actionable.</div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-number">02</div>
+        <div class="problem-title">Process debt compounds</div>
+        <div class="problem-body">Every quarter without a unified system of record adds integration complexity and training overhead. The cost of migration increases roughly linearly with headcount. The window to modernize affordably narrows.</div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-number">03</div>
+        <div class="problem-title">The RFP trap</div>
+        <div class="problem-body">Formal RFPs optimize for feature checklists, not fit. Vendors who enter during the research phase — before scoring criteria are locked — consistently outperform late-stage additions on implementation success and renewal rates.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="proof-section">
+  <div class="container">
+    <div class="section-eyebrow">Verified outcomes</div>
+    <h2 class="section-title">What mid-market teams achieved in their first year.</h2>
+    <p class="section-body">Named references, measurable outcomes, same company size range as yours. No anonymized "customer in your industry" placeholders.</p>
+    <div class="proof-grid">
+      <div class="case-card">
+        <div class="case-tag">Healthcare · 280 person sales org</div>
+        <div class="case-company">Regional Health Network (Composite)</div>
+        <div class="case-descriptor">Prior auth & clinical documentation routing via Agentforce</div>
+        <div class="case-metrics">
+          <div>
+            <div class="case-metric-val">41%</div>
+            <div class="case-metric-label">Reduction in prior auth processing time</div>
+          </div>
+          <div>
+            <div class="case-metric-val">18%</div>
+            <div class="case-metric-label">Increase in revenue cycle velocity, Q1–Q3</div>
+          </div>
+        </div>
+        <div class="case-quote">"We estimated 14 weeks to full deployment. We went live in 11. The phased rollout model meant our ops team was never blocked."</div>
+        <div class="case-attribution">VP Revenue Operations · Regional health system, Southeast US</div>
+      </div>
+      <div class="case-card">
+        <div class="case-tag">SaaS · 190 person revenue org</div>
+        <div class="case-company">B2B SaaS Platform (Composite)</div>
+        <div class="case-descriptor">Intelligent pipeline forecast and deal risk scoring</div>
+        <div class="case-metrics">
+          <div>
+            <div class="case-metric-val">29%</div>
+            <div class="case-metric-label">Improvement in 90-day forecast accuracy</div>
+          </div>
+          <div>
+            <div class="case-metric-val">3.2×</div>
+            <div class="case-metric-label">ROI on Agentforce investment, Year 1 (Forrester TEI)</div>
+          </div>
+        </div>
+        <div class="case-quote">"What changed wasn't just our data — it was our ability to act on it before deals slipped. The AI surfaces the risk; reps make the call."</div>
+        <div class="case-attribution">SVP Sales · Mid-market SaaS, Series C</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-eyebrow">Named use cases</div>
+    <h2 class="section-title">What Agentforce does, specifically.</h2>
+    <p class="section-body">Not "AI for sales." Specific agents, specific workflows, measurable unit economics for your industry vertical.</p>
+    <div class="usecase-tabs">
+      <div class="tab active" onclick="switchTab('pipeline', this)">Pipeline intelligence</div>
+      <div class="tab" onclick="switchTab('routing', this)">Case routing</div>
+      <div class="tab" onclick="switchTab('forecast', this)">Forecast automation</div>
+    </div>
+    <div id="tab-pipeline" class="usecase-content active">
+      <div>
+        <h3 class="usecase-title">Autonomous pipeline review and deal risk scoring</h3>
+        <p class="usecase-body">Agentforce monitors deal velocity, engagement recency, and multi-threaded contact coverage across every open opportunity — and surfaces risk signals before the weekly pipeline call, not during it.</p>
+        <ul class="usecase-outcomes">
+          <li><span class="check">✓</span> Flags stalled deals based on engagement gap, not rep self-report</li>
+          <li><span class="check">✓</span> Identifies single-threaded deals missing economic buyer contact</li>
+          <li><span class="check">✓</span> Recommends next action per deal, per rep — not per manager</li>
+          <li><span class="check">✓</span> Reduces pipeline review meeting time by 40–60% (customer cohort average)</li>
+        </ul>
+      </div>
+      <div class="usecase-visual">
+        <div class="flow-step"><div class="flow-num">1</div><div><div class="flow-label">Signal ingestion</div><div class="flow-sub">CRM activity, email engagement, call logs, product usage data</div></div></div>
+        <div class="flow-connector"></div>
+        <div class="flow-step"><div class="flow-num">2</div><div><div class="flow-label">Risk model runs nightly</div><div class="flow-sub">Agentforce scores each open opportunity against deal health benchmarks for your industry vertical</div></div></div>
+        <div class="flow-connector"></div>
+        <div class="flow-step"><div class="flow-num">3</div><div><div class="flow-label">Prioritized rep digest delivered at 7am</div><div class="flow-sub">One action per at-risk deal. Rep clicks to accept, modify, or dismiss</div></div></div>
+        <div class="flow-connector"></div>
+        <div class="flow-step"><div class="flow-num">4</div><div><div class="flow-label">Manager dashboard updated in real time</div><div class="flow-sub">Forecast confidence score, deal risk heat map, and rep response rate — no manual rollup</div></div></div>
+      </div>
+    </div>
+    <div id="tab-routing" class="usecase-content">
+      <div>
+        <h3 class="usecase-title">Autonomous case routing and entitlement resolution</h3>
+        <p class="usecase-body">Agentforce reads inbound case content, matches to entitlement rules, and routes to the correct team tier — without a manual triage queue.</p>
+        <ul class="usecase-outcomes">
+          <li><span class="check">✓</span> Routes based on case content, not just category field</li>
+          <li><span class="check">✓</span> Applies entitlement logic at ingestion, not at escalation</li>
+          <li><span class="check">✓</span> Reduces average handle time by 22–35% in Year 1</li>
+          <li><span class="check">✓</span> Full audit trail per routing decision — no black-box AI</li>
+        </ul>
+      </div>
+      <div class="usecase-visual">
+        <div class="flow-step"><div class="flow-num">1</div><div><div class="flow-label">Case arrives (any channel)</div><div class="flow-sub">Email, portal submission, API, or phone-to-case transcription</div></div></div>
+        <div class="flow-connector"></div>
+        <div class="flow-step"><div class="flow-num">2</div><div><div class="flow-label">Agentforce reads and classifies</div><div class="flow-sub">Issue type, severity, account tier, and entitlement coverage — in under 4 seconds</div></div></div>
+        <div class="flow-connector"></div>
+        <div class="flow-step"><div class="flow-num">3</div><div><div class="flow-label">Route with reason code</div><div class="flow-sub">Agent receives case with routing rationale attached — full context, no rework</div></div></div>
+        <div class="flow-connector"></div>
+        <div class="flow-step"><div class="flow-num">4</div><div><div class="flow-label">SLA clock starts at routing, not at open</div><div class="flow-sub">Time-to-route drops from 18 min average to under 60 seconds</div></div></div>
+      </div>
+    </div>
+    <div id="tab-forecast" class="usecase-content">
+      <div>
+        <h3 class="usecase-title">AI-assisted pipeline forecasting</h3>
+        <p class="usecase-body">Agentforce replaces the bottom-up rep rollup with a model trained on your own historical deal data, adjusted weekly for current quarter signals.</p>
+        <ul class="usecase-outcomes">
+          <li><span class="check">✓</span> Trained on your CRM data, not industry benchmarks</li>
+          <li><span class="check">✓</span> Produces 30/60/90-day confidence-weighted forecast</li>
+          <li><span class="check">✓</span> Explains variance from prior week — auditable, not opaque</li>
+          <li><span class="check">✓</span> Reduces forecast miss rate by 29% in customer cohort (Year 1)</li>
+        </ul>
+      </div>
+      <div class="usecase-visual">
+        <div class="flow-step"><div class="flow-num">1</div><div><div class="flow-label">Historical deal data ingested</div><div class="flow-sub">Win/loss patterns, stage velocity, rep performance variance — last 24 months minimum</div></div></div>
+        <div class="flow-connector"></div>
+        <div class="flow-step"><div class="flow-num">2</div><div><div class="flow-label">Weekly model refresh</div><div class="flow-sub">Current pipeline mapped against historical patterns. Each deal gets a close probability score</div></div></div>
+        <div class="flow-connector"></div>
+        <div class="flow-step"><div class="flow-num">3</div><div><div class="flow-label">CRO receives confidence-weighted forecast</div><div class="flow-sub">Best case / committed / likely breakdowns with deal-level drill-down</div></div></div>
+        <div class="flow-connector"></div>
+        <div class="flow-step"><div class="flow-num">4</div><div><div class="flow-label">Variance explained in plain language</div><div class="flow-sub">"Committed dropped $1.2M this week — 3 deals moved to late stage without next step logged"</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="objection-section">
+  <div class="container">
+    <div class="section-eyebrow">Common concerns, addressed directly</div>
+    <h2 class="section-title">What mid-market buyers ask before they shortlist.</h2>
+    <p class="section-body">These are the three objections that come up in 80% of first conversations. We'd rather address them here than wait for your RFP.</p>
+    <div class="objection-grid">
+      <div class="objection-card">
+        <div class="objection-header">"What does implementation actually look like?"</div>
+        <div class="objection-body"><strong>Phased deployment, not a big bang.</strong> Standard mid-market deployment runs 12–16 weeks in four phases: data audit and migration scoping, core CRM configuration, Agentforce agent activation, and team enablement. Each phase has defined exit criteria before the next begins.</div>
+      </div>
+      <div class="objection-card">
+        <div class="objection-header">"How does consumption-based pricing work at our scale?"</div>
+        <div class="objection-body"><strong>Predictable cost, not open-ended consumption.</strong> We offer cost-cap configurations that set a monthly ceiling per workspace. Your RevOps team will see actual usage dashboards, and we model projected consumption based on your org size before you commit.</div>
+      </div>
+      <div class="objection-card">
+        <div class="objection-header">"What happens to our existing data?"</div>
+        <div class="objection-body"><strong>Migration is real work. We do not pretend otherwise.</strong> Salesforce Data Cloud migration tooling handles the majority of structured data transfer. We provide a detailed data audit in Week 1, a migration plan by Week 3, and dedicated support through go-live.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="eval-section">
+  <div class="container">
+    <div class="section-eyebrow">How to evaluate us</div>
+    <h2 class="section-title">A structured evaluation takes three weeks, not three months.</h2>
+    <p class="section-body">Most mid-market teams can complete a scoped technical evaluation — including a live Agentforce demo tailored to their tech stack — in 21 days if the right stakeholders are in the room.</p>
+    <div class="eval-grid">
+      <div class="eval-phase">
+        <div class="eval-phase-num">01</div>
+        <div class="eval-phase-title">Technical session</div>
+        <div class="eval-phase-body">60-minute working session. We configure a live demo to your industry vertical and current tech stack. Your RevOps and sales leaders both attend.</div>
+      </div>
+      <div class="eval-phase">
+        <div class="eval-phase-num">02</div>
+        <div class="eval-phase-title">ROI modeling</div>
+        <div class="eval-phase-body">We build a business case using your headcount, current tooling costs, and estimated ACV range. You get the model, not just the output.</div>
+      </div>
+      <div class="eval-phase">
+        <div class="eval-phase-num">03</div>
+        <div class="eval-phase-title">Reference call</div>
+        <div class="eval-phase-body">Direct call with a Salesforce customer in your industry, same company size. No scripted references — we'll let you set the agenda.</div>
+      </div>
+      <div class="eval-phase">
+        <div class="eval-phase-num">04</div>
+        <div class="eval-phase-title">Deployment scoping</div>
+        <div class="eval-phase-body">A deployment plan specific to your data environment, org structure, and timeline. If the numbers don't work, we'll tell you before you commit.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="container">
+    <div class="section-eyebrow">Start the conversation</div>
+    <h2 class="section-title">Most evaluations start with a 60-minute technical session.</h2>
+    <p class="section-body">No deck. No scripted demo. A working session with your RevOps lead and a Salesforce solutions engineer — configured to your industry and current tooling.</p>
+    <div class="hero-actions" style="justify-content: center;">
+      <a href="#" class="btn-primary">Book a technical session</a>
+      <a href="#" class="btn-secondary">Download the ROI model</a>
+    </div>
+    <p class="cta-disclaimer">We will not add you to a nurture sequence. This conversation is with a named solutions engineer, not a BDR queue.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-note">© 2025 Salesforce, Inc. All rights reserved. · MKTG 468 Capstone — Team 1 · Academic simulation only.</div>
+  <div class="footer-links">
+    <a href="#">Privacy</a>
+    <a href="#">Trust & Security</a>
+    <a href="#">Agentforce Documentation</a>
+  </div>
+</footer>
+
+<script>
+  function switchTab(name, el) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.usecase-content').forEach(c => c.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('tab-' + name).classList.add('active');
+  }
+</script>
+
+</body>
+</html>
